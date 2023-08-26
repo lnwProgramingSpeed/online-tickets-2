@@ -1,0 +1,51 @@
+<nav class="navbar bg-body-tertiary mb-0 pb-0">
+    <div class="h3 container justify-content-center mt-5">
+        <img class="logo shadow" src="https://www.3bugs.com/online-tickets/assets/logo_camt_2.png">&nbsp;MOVIE TICKETS
+    </div>
+
+    <div class="container justify-content-center mt-4">
+        <!-- โรงภาพยนตร์ -->
+        <ul class="nav nav-tabs justify-content-center" style="width: 100%">
+            <li class="nav-item" *ngFor="let theater of theaters">
+                <a class="nav-link" href="javascript:void(0);" (click)="displayTheater(theater)"
+                    [ngClass]="{'active': theater === selectedTheater}">
+                    {{ theater.name }}
+                </a>
+            </li>
+        </ul>
+
+
+        <div class="my-tab-content container bg-white p-4">
+            <div *ngIf="selectedTheater">
+                <div class="container mt-3">
+                    <div class="row">
+                        <div class="d-flex col-sm-6 justify-content-center justify-content-sm-end">
+                            <img class="shadow" [src]="selectedTheater.movie.coverImage" style="width: 240px;">
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="h5 text-primary fw-bold my-3">{{ selectedTheater.movie.name }}</div>
+                            <div class="h6">หมวดหมู่: {{ selectedTheater.movie.genre }}</div>
+                            <div class="h6">เรท: {{ selectedTheater.movie.rate }}</div>
+                            <div class="h6"><i class="far fa-clock"></i> {{ selectedTheater.movie.length }} นาที
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mx-sm-5" style="margin-bottom: 80px;">
+                    <div class="h4 mt-5 mb-3">รอบฉาย</div>
+                    <div class="row g-3">
+                        <!-- Loop through showtimes and display buttons -->
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-3"
+                            *ngFor="let showtime of getShowtimesForSelectedTheater()">
+                            <button type="button" class="btn btn-primary" [routerLink]="['/booking', this.selectShowtime.id]">
+                                {{ showtime.showTime }}
+                            </button>                                                  
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</nav>
